@@ -1,9 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file://C%3A/Users/%D0%90%D0%BC%D0%B0%D0%BB%D0%B8%D1%8F/my-app/src/app/layout.js"],"sourcesContent":["import \"./globals.css\";\n\nconst Layout = ({ children }) => {\n  return (\n    <html lang=\"ru\">\n      <body>\n        <header className=\"bg-white shadow-md py-4\">\n          <center>\n            <h1 className=\"text-3xl font-medium\">Список пользователей</h1>\n          </center>\n        </header>\n        <main className=\"container mx-auto px-4 py-6\">{children}</main>\n      </body>\n    </html>\n  );\n};\n\nexport default Layout;"],"names":[],"mappings":";;;;;;AAEA,MAAM,SAAS,CAAC,EAAE,QAAQ,EAAE;IAC1B,qBACE,8OAAC;QAAK,MAAK;kBACT,cAAA,8OAAC;;8BACC,8OAAC;oBAAO,WAAU;8BAChB,cAAA,8OAAC;kCACC,cAAA,8OAAC;4BAAG,WAAU;sCAAuB;;;;;;;;;;;;;;;;8BAGzC,8OAAC;oBAAK,WAAU;8BAA+B;;;;;;;;;;;;;;;;;AAIvD;uCAEe"}},
-    {"offset": {"line": 60, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}},
-    {"offset": {"line": 71, "column": 0}, "map": {"version":3,"sources":["file://C%3A/Users/%D0%90%D0%BC%D0%B0%D0%BB%D0%B8%D1%8F/my-app/node_modules/next/src/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.ts"],"sourcesContent":["module.exports = require('../../module.compiled').vendored[\n  'react-rsc'\n].ReactJsxDevRuntime\n"],"names":["module","exports","require","vendored","ReactJsxDevRuntime"],"mappings":";AAAAA,OAAOC,OAAO,GAAGC,QAAQ,0HAAyBC,QAAQ,CACxD,YACD,CAACC,kBAAkB","ignoreList":[0]}},
-    {"offset": {"line": 73, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
-}
