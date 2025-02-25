@@ -1,66 +1,80 @@
-// src/app/auth/page.js
-'use client'; 
+// src/app/login/page.js
+'use client';
 
-import { useState } from 'react';
 import { useRouter } from "next/navigation";
 
-const Login = ({ setUser  }) => { // Принимаем setUser  как пропс
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+export default function LoginPage() {
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault(); // Предотвращаем перезагрузку страницы
+  async function handleSubmit(event) {
+    event.preventDefault();
 
-    const response = await fetch('/api/login', { 
+    const formData = new FormData(event.currentTarget);
+    const email = formData.get('email'); // Получаем email
+    const password = formData.get('password'); // Получаем пароль
+
+    const response = await fetch('/api/login', { // Запрос на сервер для аутентификации
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }), // Отправляем данные на сервер
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
     });
 
     if (response.ok) {
-      const user = await response.json(); // Получаем данные пользователя
-      setUser (user); // Устанавливаем пользователя
-      router.push('/profile'); // Перенаправление на страницу профиля
+      const userData = await response.json(); // Получаем данные пользователя
+      // Сохраняем email, password в sessionStorage
+      sessionStorage.setItem('userEmail', userData.user.email);
+      sessionStorage.setItem('userPass', userData.user.password);
+      // Если успешный ответ, перенаправляем на страницу профиля
+      router.push('/profile');
     } else {
+      // Обработка ошибок
       const errorData = await response.json();
-      alert(errorData.error); // Показываем сообщение об ошибке
+      alert(errorData.message || 'Ошибка входа');
     }
-
-    // Сброс полей формы после входа
-    setEmail('');
-    setPassword('');
-  };
+  }
 
   return (
-    <div className="flex flex-col items-center min-h-screen p-6">
-      <h1 className="text-3xl font-semibold text-gray-800 mb-6">Вход</h1>
-      <form onSubmit={handleSubmit} className="w-full max-w-sm">
-        <input 
-          type="email" 
-          placeholder="Электронная почта" 
-          value={email} 
-          onChange={(e) => setEmail(e.target.value)} 
-          required 
-          className="border border-black p-2 rounded mb-4 w-full focus:outline-none focus:border-blue-500"
+    <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-white p-8 shadow-lg rounded-lg mt-10">
+      <h2 className="text-2xl font-bold mb-6 text-center">Войти</h2>
+      
+      <div className="mb-4">
+        <label htmlFor="email" className="block text-gray-700 text-sm font-semibold mb-1">
+          Email
+        </label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Введите ваш Email"
+          required
+          className="border border-gray-300 p-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        <input 
-          type="password" 
-          placeholder="Пароль" 
-          value={password} 
-          onChange={(e) => setPassword(e.target.value)} 
-          required 
-          className="border border-black p-2 rounded mb-4 w-full focus:outline-none focus:border-blue-500"
+      </div>
+      
+      <div className="mb-6">
+        <label htmlFor="password" className="block text-gray-700 text-sm font-semibold mb-1">
+          Пароль
+        </label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Введите ваш пароль"
+          required
+          className="border border-gray-300 p-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        <button type="submit" className="border border-blue-500 text-blue-500 p-2 rounded w-full hover:bg-blue-500 hover:text-white transition duration-200">Войти</button>
-        <p className="mt-4 text-center text-gray-600">
+      </div>
+      
+      <button
+        type="submit"
+        className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-200"
+      >
+        Войти
+      </button>
+      <p className="mt-4 text-center text-gray-600">
           Нет аккаунта? <a href='/reg' className="text-blue-500 hover:underline">Зарегистрироваться</a>
         </p>
-      </form>
-    </div>
+    </form>
   );
-};
-
-export default Login;
+  
+}

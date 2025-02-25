@@ -37,39 +37,60 @@ const Register = () => {
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen p-6">
-    <h1 className="text-3xl font-semibold text-gray-800 mb-6">Регистрация</h1>
-    <form onSubmit={handleSubmit} className="w-full max-w-sm">
-      <input 
-        type="email" 
-        placeholder="Электронная почта" 
-        value={email} 
-        onChange={(e) => setEmail(e.target.value)}
-        required 
-        className="border border-black p-2 rounded mb-4 w-full focus:outline-none focus:border-blue-500"
-      />
-      <input 
-        type="password" 
-        placeholder="Пароль" 
-        value={password} 
-        onChange={(e) => setPassword(e.target.value)}
-        required 
-        className="border border-black p-2 rounded mb-4 w-full focus:outline-none focus:border-blue-500"
-      />
-      <input 
-        type="password" 
-        placeholder="Подтвердите пароль" 
-        value={confirmPassword} 
-        onChange={(e) => setConfirmPassword(e.target.value)}
-        required 
-        className="border border-black p-2 rounded mb-4 w-full focus:outline-none focus:border-blue-500"
-      />
-      <button className="border border-blue-500 text-blue-500 p-2 rounded w-full hover:bg-blue-500 hover:text-white transition duration-200">Зарегистрироваться</button>
+    <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-white p-8 shadow-lg rounded-lg mt-10">
+      <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Регистрация</h2>
+      
+      <div className="mb-4">
+        <label htmlFor="email" className="block text-gray-700 text-sm font-semibold mb-1">
+          Email
+        </label>
+        <input 
+          type="email" 
+          id="email"
+          placeholder="Электронная почта" 
+          value={email} 
+          onChange={(e) => setEmail(e.target.value)}
+          required 
+          className="border border-gray-300 p-2 rounded mb-4 w-full focus:outline-none focus:border-blue-500"
+        />
+      </div>
+  
+      <div className="mb-6">
+        <label htmlFor="password" className="block text-gray-700 text-sm font-semibold mb-1">
+          Пароль
+        </label>
+        <input 
+          type="password" 
+          id="password"
+          placeholder="Пароль" 
+          value={password} 
+          onChange={(e) => setPassword(e.target.value)}
+          required 
+          className="border border-gray-300 p-2 rounded mb-4 w-full focus:outline-none focus:border-blue-500"
+        />
+      </div>
+  
+      <div className="mb-6">
+        <label htmlFor="confirmed_password" className="block text-gray-700 text-sm font-semibold mb-1">
+          Подтвердите пароль
+        </label>
+        <input 
+          type="password" 
+          id="confirmed_password"
+          placeholder="Подтвердите пароль" 
+          value={confirmPassword} 
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          required 
+          className="border border-gray-300 p-2 rounded mb-4 w-full focus:outline-none focus:border-blue-500"
+        />
+      </div>
+      
+      <button className="bg-blue-500 text-white p-2 rounded w-full hover:bg-blue-600 transition duration-200">Зарегистрироваться</button>
+      
       <p className="mt-4 text-center text-gray-600">
         Уже есть аккаунт? <a href='/auth' className="text-blue-500 hover:underline">Войти</a>
       </p>
-    </form>
-  </div>
+    </form>  
   );
 };
 
