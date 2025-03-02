@@ -1,80 +1,63 @@
-// src/app/login/page.js
+// src/app/auth/page.js
 'use client';
 
-import { useRouter } from "next/navigation";
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
-export default function LoginPage() {
+const AuthPage = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const router = useRouter();
 
-  async function handleSubmit(event) {
-    event.preventDefault();
-
-    const formData = new FormData(event.currentTarget);
-    const email = formData.get('email'); // Получаем email
-    const password = formData.get('password'); // Получаем пароль
-
-    const response = await fetch('/api/login', { // Запрос на сервер для аутентификации
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const response = await fetch('/api/login', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({ email, password }),
     });
 
-    if (response.ok) {
-      const userData = await response.json(); // Получаем данные пользователя
-      // Сохраняем email, password в sessionStorage
-      sessionStorage.setItem('userEmail', userData.user.email);
-      sessionStorage.setItem('userPass', userData.user.password);
-      // Если успешный ответ, перенаправляем на страницу профиля
-      router.push('/profile');
-    } else {
-      // Обработка ошибок
+    if (!response.ok) {
       const errorData = await response.json();
-      alert(errorData.message || 'Ошибка входа');
+      alert(errorData.message || 'Ошибка входа'); // Обработка ошибок
+      return;
     }
-  }
+
+    const data = await response.json();
+    document.cookie = `token=${data.user.token}; path=/`; // Сохраняем токен в куках
+    router.push('/profile'); // Перенаправляем на страницу профиля
+  };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-white p-8 shadow-lg rounded-lg mt-10">
-      <h2 className="text-2xl font-bold mb-6 text-center">Войти</h2>
-      
-      <div className="mb-4">
-        <label htmlFor="email" className="block text-gray-700 text-sm font-semibold mb-1">
-          Email
-        </label>
+    <div className="container mx-auto">
+      <h2 className="text-2xl font-bold">Вход</h2>
+      <form onSubmit={handleLogin} className="mt-4">
         <input
           type="email"
-          name="email"
-          id="email"
-          placeholder="Введите ваш Email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           required
-          className="border border-gray-300 p-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="border p-2 mb-4 w-full"
         />
-      </div>
-      
-      <div className="mb-6">
-        <label htmlFor="password" className="block text-gray-700 text-sm font-semibold mb-1">
-          Пароль
-        </label>
         <input
           type="password"
-          name="password"
-          id="password"
-          placeholder="Введите ваш пароль"
+          placeholder="Пароль"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           required
-          className="border border-gray-300 p-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="border p-2 mb-4 w-full"
         />
-      </div>
-      
-      <button
-        type="submit"
-        className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-200"
-      >
-        Войти
-      </button>
-      <p className="mt-4 text-center text-gray-600">
-          Нет аккаунта? <a href='/reg' className="text-blue-500 hover:underline">Зарегистрироваться</a>
+        <button type="submit" className="bg-blue-500 text-white p-2">Войти</button>
+
+        <p className="mt-4 text-center text-gray-600">
+          Еще нет аккаунта? <a href='/reg' className="text-blue-500 hover:underline">Зарегистрироваться</a>
         </p>
-    </form>
+      </form>
+    </div>
   );
-  
-}
+};
+
+export default AuthPage;

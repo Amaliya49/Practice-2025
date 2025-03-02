@@ -1,29 +1,32 @@
-// src/app/api/login.js
+// src/app/api/login/route.js
 import fs from 'fs';
 import path from 'path';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 import { NextResponse } from 'next/server';
 
-// Определяем путь к файлу data.json
 const dataPath = path.join(process.cwd(), 'data.json');
+const SECRET_KEY = 'super_puper_secret_key'; 
 
 export async function POST(req) {
-  const { email, password } = await req.json();
+  try {
+    const { email, password } = await req.json();
 
-  // Проверяем, что оба поля заполнены
-  if (!email || !password) {
-    return NextResponse.json({ message: 'Все поля обязательны.' }, { status: 400 });
+    if (!email || !password) {
+      return NextResponse.json({ message: 'Все поля обязательны.' }, { status: 400 });
+    }
+
+    const users = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+    const user = users.find(user => user.email === email);
+
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      return NextResponse.json({ message: 'Неверные учетные данные.' }, { status: 401 });
+    }
+
+    const token = jwt.sign({ email: user.email }, SECRET_KEY, { expiresIn: '1h' });
+    return NextResponse.json({ message: 'Успешный вход.', user: { email: user.email, token } }, { status: 200 });
+  } catch (error) {
+    console.error('Ошибка на сервере:', error);
+    return NextResponse.json({ message: 'Внутренняя ошибка сервера.' }, { status: 500 });
   }
-
-  // Читаем пользователей из файла
-  const users = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
-  const user = users.find(user => user.email === email);
-
-  // Проверяем существование пользователя и корректность пароля
-  if (!user || !(await bcrypt.compare(password, user.password))) {
-    return NextResponse.json({ message: 'Неверные учетные данные.' }, { status: 401 });
-  }
-
-  // Если все проверки пройдены, возвращаем успешный ответ с данными пользователя
-  return NextResponse.json({ message: 'Успешный вход.', user: { email: user.email } }, { status: 200 });
 }

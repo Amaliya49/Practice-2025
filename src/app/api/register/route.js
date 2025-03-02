@@ -1,8 +1,12 @@
+// src/app/api/register/route.js
 import fs from 'fs';
 import path from 'path';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken'; // Убедитесь, что вы установили jsonwebtoken
+import { NextResponse } from 'next/server';
 
 const dataPath = path.join(process.cwd(), 'data.json');
+const SECRET_KEY = 'super_puper_secret_key'; // Замените на ваш секретный ключ
 
 // Функция для чтения пользователей из файла
 const readUsers = () => {
@@ -38,12 +42,15 @@ export async function POST(req) {
   // Хеширование пароля
   const hashedPassword = await bcrypt.hash(password, 10);
   
+  // Генерация токена
+  const token = jwt.sign({ email }, SECRET_KEY, { expiresIn: '1h' });
+
   // Создание нового пользователя
-  const newUser  = { email, password: hashedPassword };
+  const newUser  = { email, password: hashedPassword, token };
   users.push(newUser );
   
   // Запись обновленного списка пользователей в файл
   writeUsers(users);
 
-  return new Response(JSON.stringify({ message: 'Пользователь успешно зарегистрирован.' }), { status: 201 });
+  return NextResponse.json({ message: 'Пользователь успешно зарегистрирован.', user: { email } }, { status: 201 });
 }
