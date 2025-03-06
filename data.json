@@ -1,7 +1,7 @@
 [
   {
-    "email": "alina@gmail.com",
-    "password": "$2b$10$ar6sUKIWyFvjLhJpaGT9Oe6CTPR0M.alaRc1SktnUz4SEuqW804Ym",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaW5hQGdtYWlsLmNvbSIsImlhdCI6MTc0MDk0NjU5MiwiZXhwIjoxNzQwOTUwMTkyfQ.vc8q0Xu912-luyf86W-RQV-bMdZIxed0NzRIa6hVkn0"
+    "email": "mail@gmail.com",
+    "password": "$2b$10$VuAA/OAWdmVBhOwUs0eGW.QkuPhqspvC0RAwjGQiIEUwnwaRAM3gS",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1haWxAZ21haWwuY29tIiwiaWF0IjoxNzQxMjg5OTU5LCJleHAiOjE3NDEyOTM1NTl9.9b1zjNKLDMCRplCcCMswBDRahazELXA_r49qrXAOYqo"
   }
 ]

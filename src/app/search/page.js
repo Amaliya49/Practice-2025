@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 const SearchPhotos = () => {
   const [query, setQuery] = useState('');
@@ -39,31 +40,31 @@ const SearchPhotos = () => {
     }
   };
 
-  const handleBack = () => {
-    router.push('/profile'); // Переход на страницу профиля
-  };
-
   return (
-    <div className="flex flex-col items-center min-h-screen">
-      <h1 className="text-4xl font-bold mt-10 mb-10">Поиск фотографий</h1>
-     
-      <form onSubmit={handleSearch} className="mb-4">
-        <input 
-          type="text" 
-          placeholder="Введите название" 
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          className="border p-2 mb-12 rounded"
-          required
-        />
-        <button type="submit" className="ml-2 bg-blue-500 text-white p-2 rounded">Поиск</button> <button 
-        onClick={handleBack} 
-        className="mb-4 bg-gray-300 text-black p-2 rounded hover:bg-gray-400 transition duration-200"
-      >
-        Назад
-      </button>
-      </form>
-      {loading && <p className="text-blue-500">Загрузка...</p>} {/* Сообщение о загрузке */}
+    <div>
+      <div className="search">
+        <form onSubmit={handleSearch}>
+          <h1>Поиск фотографий</h1>
+          <hr></hr>
+          <input 
+            type="text" 
+            placeholder="Введите название" 
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className="border p-2 mb-12 rounded"
+            required
+          />
+          <button type="submit" className='mt-22'>
+            <Image 
+              src="/images/Vector2.png" 
+              alt="Стрелочка" 
+              width={40} 
+              height={0}
+            /> 
+          </button>
+        </form>
+      </div>
+      {loading && <p className="text-blue-500">Загрузка...</p>}
       {error && <p className="text-red-500">{error}</p>} 
       <div className="grid grid-cols-2 gap-4">
         {photos.map(photo => (

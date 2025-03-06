@@ -1,3 +1,295 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@font-face {
+    font-family: 'Vollkorn';
+    src: url('/fonts/Vollkorn.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'PT_Sans';
+    src: url('/fonts/PT_Sans.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Inter';
+    src: url('/fonts/Inter.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Figtree';
+    src: url('/fonts/Figtree.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+nav{
+    width: 394px;
+    height: 50px;
+    position: absolute; 
+    top: 50px;
+    left: 115px;
+    align-items: center;
+}
+nav .header-link{
+    color: #C76904;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 20px; 
+    margin: 0 10px;
+}
+.main{
+    padding-bottom: 1000px;
+}
+.image-custom {
+    position: absolute; 
+    top: 194px;
+    left: 115px; 
+    border-top-left-radius: 100px; 
+    border-bottom-right-radius: 100px;
+}
+.p {
+    position: absolute;
+    font-family: 'Vollkorn', serif;
+    font-size: 55px; 
+    line-height: 81.25px; 
+    color: white;
+    text-align: left;
+    width: 891px;
+    height: 162px;
+    top: 267px;
+    left: 140px;
+}
+.p2 {
+    position: absolute;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 23px; 
+    line-height: 33px; 
+    letter-spacing: 1%; 
+    color: white;
+    text-align: left;
+    width: 470px;
+    height: 99px;
+    top: 422px;
+    left: 140px;
+}
+
+.btns {
+    position: absolute;
+    width: 396px;
+    height: 85px;
+    top: 532px;
+    left: 140px;
+    border-radius: 18px;
+    background-color: #F9F6F1;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center; 
+}
+.btns .b1, .btns .b2 {
+    font-size: 18px;
+    font-family: 'Inter', sans-serif;
+    border-radius: 18px;
+    padding-top: 26px;
+    padding-right: 49px; 
+    padding-bottom: 26px;
+    padding-left: 48px; 
+    background-color: #CDA274;
+    color: white;
+    display: flex;
+    justify-content: space-evenly; 
+    align-items: center; 
+}
+.btns .b1 {
+    width: 200px; 
+    height: 75px;
+    padding: 0 30px;
+}
+.btns .b2 {
+    width: 176px; 
+    height: 75px;
+}
+
+.authRegPage{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 661px;
+    margin-top: 130px;
+    padding-left: 112px;
+    background: linear-gradient(to right, #1E1E1E 70%, #F9F6F1 30%);
+}
+.authRegPage .reg-form{
+    margin-top: 50px !important; 
+}
+.authRegPage form{
+    margin-top: 120px;
+    width: 592px;
+    height: 510px;
+}
+.authRegPage form h1{
+    font-family: 'Vollkorn', serif;
+    font-size: 65px; 
+    line-height: 81.25px; 
+    color: white;
+    text-align: left;
+    width: 891px;
+}
+.authRegPage form .under-h1{
+    font-family: 'PT Sans', sans-serif;
+    font-size: 22px; 
+    line-height: 33px; 
+    letter-spacing: 1%;
+    color: white;
+    text-align: left;
+    width:470px;
+    height: 66px;
+}
+.authRegPage form .link{
+    font-family: 'PT Sans', sans-serif;
+    font-size: 22px; 
+    line-height: 33px; 
+    letter-spacing: 1%;
+    color: white;
+    text-align: left;
+}
+.authRegPage form input{
+    background-color: #ffffff00;
+    font-family: 'PT Sans', sans-serif;
+    color: #CDA274;
+    font-size: 30px;
+    line-height: 45px;
+    letter-spacing: 1%;
+}
+.authRegPage form input::placeholder{
+    color: #CDA274;
+}
+.authRegPage form input:focus{
+    border: none; 
+    outline: none; 
+}
+.authRegPage button{
+    background-color: #CDA274;
+    width: 276px;
+    height: 75px;
+    border-radius: 18px;
+    padding: 26px 100px;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center; 
+    color: white;
+    font-size: 18px;
+    box-shadow: 0 5px 20px 0 white;
+}
+.authRegPage .reg-btn{
+    padding: 0 30px;
+}
+
+.profile{ 
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 684px;
+    margin-top: 150px;
+    padding: 2px 112px;
+}
+.profile .form-pass{
+    width: 488px;
+    height: 408px;
+    margin-top: 120px;
+}
+.profile .form-pass .title{
+    font-family: 'Vollkorn', serif;
+    font-size: 48px;
+    line-height: 60px;
+    letter-spacing: -3%;
+}
+.profile .form-pass .change-btn{
+    color: white;
+    font-size: 18px;
+    font-family: 'Inter', sans-serif;
+    background-color: #CDA274;
+    width: 200px;
+    height: 49px;
+    border-radius: 18px;
+    padding-top: 26px;
+    padding-right: 49px; 
+    padding-bottom: 26px;
+    padding-left: 48px; 
+    display: flex;
+    justify-content: space-evenly; 
+    align-items: center; 
+}
+.profile .form-pass .del-btn{
+    background-color: none;
+    color: #929C9A;
+    font-size: 48px;
+    line-height: 60px;
+    letter-spacing: -3%;
+    font-family: 'Figtree', sans-serif;
+}
+.profile input{
+    background-color: #F4F0EC;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 30px;
+    line-height: 45px;
+    letter-spacing: 1%;
+    padding-left: 10px;
+    width: 488px;
+    height: 53px;
+    border-radius: 18px;
+}
+.profile input::placeholder{
+    color: #CDA274;
+}
+.profile input:focus{
+    border: none;
+    outline: none;
+}
+.profile hr{
+    margin-bottom: 30px;
+    width: 488px;
+    height: 2px;
+    background-color: black;
+}
+
+.search{
+    display: flex;
+    justify-content: center;
+    margin-top: 150px;
+}
+.search h1{
+    text-align: center;
+    font-family: 'Vollkorn', serif;
+    font-size: 33px; 
+    line-height: 81.25px; 
+    color: #CDA274;
+    width: 891px;
+}
+.search input{
+    color: #CDA274;
+    width: 558px;
+    height: 50px;
+    background-color: #F4F0EC;
+    margin-left: 150px;
+    margin-right: 20px;
+    border-radius: 18px;
+}
+.search hr{ 
+    margin-left: 270px;
+    margin-bottom: 30px;
+    width: 350px;
+    height: 2px;
+    background-color: #F4F0EC;
+}
+.search input::placeholder{
+    color: #CDA274;
+}
+.search input:focus{
+    border: none;
+    outline: none;
+}

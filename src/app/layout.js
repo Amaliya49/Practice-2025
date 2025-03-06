@@ -1,24 +1,34 @@
-// src/app/layout.js
 'use client';
 
 import './globals.css';
-import Link from 'next/link';
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
-import { signOut } from 'next-auth/react';
+import Link from 'next/link';
 
 const Layout = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    // Проверяем наличие токена в куках
-    const token = document.cookie.split('; ').find(row => row.startsWith('token='));
-    setIsAuthenticated(!!token); // Устанавливаем состояние аутентификации
+    const checkAuth = () => {
+      const token = document.cookie.split('; ').find(row => row.trim().startsWith('token='));
+      if (token) {
+        setIsAuthenticated(true); // Устанавливаем состояние аутентификации в true
+      } else {
+        setIsAuthenticated(false); // Устанавливаем состояние аутентификации в false
+      }
+    };
+  
+    checkAuth(); // Проверяем аутентификацию при монтировании компонента
+  
+    // Добавляем обработчик события для отслеживания изменений куков
+    window.addEventListener('storage', checkAuth);
+  
+    return () => {
+      window.removeEventListener('storage', checkAuth);
+    };
   }, []);
 
-  const handleLogout = async () => {
-    // Вызов метода signOut из next-auth
-    await signOut({ redirect: false });
-    
+  const handleLogout = () => {
     // Удаляем токен из куков
     document.cookie = 'token=; Max-Age=0; path=/'; // Удаляем токен из куков
     setIsAuthenticated(false); // Обновляем состояние
@@ -27,20 +37,39 @@ const Layout = ({ children }) => {
   return (
     <html lang="ru">
       <body>
-        <header className="bg-white shadow-md py-4">
-          <nav className="container mx-auto flex justify-between items-center">
-            <h1 className="text-4xl font-bold text-gray-800">Фото выставка</h1>
+        <header className="bg-white">
+          <nav className="container flex items-center justify-between">
+            <Link href="/">
+              <div className="flex items-center">
+                <Image 
+                  src="/images/Search.png" 
+                  alt="back" 
+                  width={50} 
+                  height={51}
+                />
+                <h1 className="font-normal text-[40px] leading-[60px] ml-4" style={{ fontFamily: 'Vollkorn' }}>
+                  ФОТО ВЫСТАВКА
+                </h1>
+              </div>
+            </Link>
             {isAuthenticated ? (
-              <>
-                <button onClick={handleLogout} className="mt-4 text-red-500 text-2xl hover:text-red-700 transition duration-200">Выйти</button>
-                <Link href="/search" className="mt-4 text-green-500 text-2xl hover:text-green-700 hover:underline transition duration-200">Галерея</Link>
-              </>
+              <div className="flex items-center">
+                <Link href="/profile" className="header-link">
+                  Профиль
+                </Link>
+                <Link href="/search" className="header-link">
+                  Поиск фотографий
+                </Link>
+                <button onClick={handleLogout} className="header-link">
+                  Выйти
+                </button>
+              </div>
             ) : (
-              <Link href="/auth" className="mt-4 text-blue-500 text-2xl hover:text-blue-700 hover:underline transition duration-200">Войти</Link>
+              <div></div>
             )}
           </nav>
         </header>
-        <main className="container mx-auto px-4 py-6">
+        <main>
           {children}
         </main>
       </body>

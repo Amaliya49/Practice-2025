@@ -4,9 +4,13 @@ import path from 'path';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { NextResponse } from 'next/server';
+import dotenv from 'dotenv';
+
+// Загружаем переменные окружения из .env файла
+dotenv.config();
 
 const dataPath = path.join(process.cwd(), 'data.json');
-const SECRET_KEY = 'super_puper_secret_key'; 
+const SECRET_KEY = process.env.SECRET_KEY; // Используем переменную окружения
 
 export async function POST(req) {
   try {

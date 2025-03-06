@@ -3,6 +3,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 const AuthPage = () => {
   const [email, setEmail] = useState('');
@@ -31,31 +32,49 @@ const AuthPage = () => {
   };
 
   return (
-    <div className="container mx-auto">
-      <h2 className="text-2xl font-bold">Вход</h2>
-      <form onSubmit={handleLogin} className="mt-4">
+    <div className="authRegPage">
+      <form onSubmit={handleLogin}>
+        <h1>Добро пожаловать!</h1>
+        <p className='under-h1'>Доступ к миллионам изображений за пару кликов</p>
+        <br></br><br></br>
         <input
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="border p-2 mb-4 w-full"
         />
+        <hr></hr>
+        <br></br><br></br>
         <input
           type="password"
           placeholder="Пароль"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="border p-2 mb-4 w-full"
         />
-        <button type="submit" className="bg-blue-500 text-white p-2">Войти</button>
-
-        <p className="mt-4 text-center text-gray-600">
-          Еще нет аккаунта? <a href='/reg' className="text-blue-500 hover:underline">Зарегистрироваться</a>
-        </p>
+        <hr></hr>
+        <p className="link"> 
+          <a href='/reg'>Еще нет учетной записи?</a>
+        </p>       
+        <br></br><br></br>
+        <button type="submit">
+          Войти
+          <Image 
+            src="/images/Vector.png" 
+            alt="Стрелочка" 
+            width={15} 
+            height={13}
+          /> 
+        </button>
       </form>
+      <Image 
+        src="/images/auth-reg.png" 
+        alt="background" 
+        width={350} 
+        height={874}
+        className='mr-64'
+      /> 
     </div>
   );
 };

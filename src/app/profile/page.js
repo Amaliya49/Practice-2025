@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 const Profile = () => {
   const router = useRouter();
@@ -17,7 +18,8 @@ const Profile = () => {
       router.push('/auth'); // Перенаправляем на страницу авторизации, если токена нет
     } else {
       const tokenValue = token.split('=')[1];
-      const decodedToken = JSON.parse(atob(tokenValue.split('.')[1])); // Декодируем токен
+      const decodedToken = JSON.parse(atob(tokenValue.split('.')[1])); // используется для извлечения и декодирования полезной нагрузки из JWT, чтобы получить доступ к данным, содержащимся в токене
+      //atob - это встроенная функция JavaScript, которая декодирует строку, закодированную в Base64.
       setEmail(decodedToken.email); // Устанавливаем email пользователя
     }
   }, [router]);
@@ -82,39 +84,47 @@ const Profile = () => {
   };
 
   return (
-    <div className="container mx-auto">
-      <form className="mt-10 mb-16">
-         <h1 className="text-2xl">Добро пожаловать, {email}</h1>
-         <button onClick={handleDeleteAccount} className="mt-4 bg-red-600 text-white p-2 rounded">Удалить аккаунт</button>
-      </form>
-       
-
-      <h2 className="text-xl">Изменить пароль</h2>
-      <form onSubmit={handleChangePassword} className="mt-4">
+    <div className="profile">
+      <form onSubmit={handleChangePassword} className='form-pass'>
+        <p className='title'>Смена пароля</p>
+        <hr></hr>
         <input
           type="password"
-          placeholder="Новый пароль"
+          placeholder="Пароль"
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
-          className="border p-1 mb-2 rounded w-64" // Уменьшены отступы и ширина
           required
         />
-        <br></br>
+        <br></br><br></br>
         <input
           type="password"
-          placeholder="Подтвердите новый пароль"
+          placeholder="Повторите пароль"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
-          className="border p-1 mb-2 rounded w-64" // Уменьшены отступы и ширина
           required
         />
+        {error && <p className="text-red-500 mt-2">{error}</p>}
+        {success && <p className="text-green-500 mt-2">{success}</p>}
+        <br></br><br></br>
+        <button type="submit" className='change-btn'>
+          Сменить 
+          <Image 
+            src="/images/Vector.png" 
+            alt="Стрелочка" 
+            width={15} 
+            height={13}
+          /> 
+        </button>
         <br></br>
-        <button type="submit" className="bg-blue-500 text-white p-2 rounded">Изменить пароль</button>
+        <button onClick={handleDeleteAccount} className='del-btn'>Удаление аккаунта</button>
       </form>
 
-      {error && <p className="text-red-500 mt-2">{error}</p>}
-      {success && <p className="text-green-500 mt-2">{success}</p>}
-
+      <Image 
+        src="/images/profile.png" 
+        alt="background" 
+        width={488} 
+        height={680}
+      /> 
     </div>
   );
 };

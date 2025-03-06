@@ -2,11 +2,15 @@
 import fs from 'fs';
 import path from 'path';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken'; // Убедитесь, что вы установили jsonwebtoken
+import jwt from 'jsonwebtoken'; 
 import { NextResponse } from 'next/server';
+import dotenv from 'dotenv';
+
+// Загружаем переменные окружения из .env файла
+dotenv.config();
 
 const dataPath = path.join(process.cwd(), 'data.json');
-const SECRET_KEY = 'super_puper_secret_key'; // Замените на ваш секретный ключ
+const SECRET_KEY = process.env.SECRET_KEY; // Используем переменную окружения
 
 // Функция для чтения пользователей из файла
 const readUsers = () => {

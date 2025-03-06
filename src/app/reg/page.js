@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from "next/navigation";
+import Image from 'next/image';
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -37,60 +38,59 @@ const Register = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-white p-8 shadow-lg rounded-lg mt-10">
-      <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Регистрация</h2>
-      
-      <div className="mb-4">
-        <label htmlFor="email" className="block text-gray-700 text-sm font-semibold mb-1">
-          Email
-        </label>
-        <input 
-          type="email" 
-          id="email"
-          placeholder="Электронная почта" 
-          value={email} 
+    <div className="authRegPage">
+      <form onSubmit={handleSubmit} className='reg-form'>
+        <h1>Добро пожаловать!</h1>
+        <p className='under-h1'>Доступ к миллионам изображений за пару кликов</p>
+        <br></br><br></br>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
-          required 
-          className="border border-gray-300 p-2 rounded mb-4 w-full focus:outline-none focus:border-blue-500"
+          required
         />
-      </div>
-  
-      <div className="mb-6">
-        <label htmlFor="password" className="block text-gray-700 text-sm font-semibold mb-1">
-          Пароль
-        </label>
-        <input 
-          type="password" 
-          id="password"
-          placeholder="Пароль" 
-          value={password} 
+        <hr></hr>
+        <br></br><br></br>
+        <input
+          type="password"
+          placeholder="Пароль"
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
-          required 
-          className="border border-gray-300 p-2 rounded mb-4 w-full focus:outline-none focus:border-blue-500"
+          required
         />
-      </div>
-  
-      <div className="mb-6">
-        <label htmlFor="confirmed_password" className="block text-gray-700 text-sm font-semibold mb-1">
-          Подтвердите пароль
-        </label>
+        <hr></hr>
+        <br></br><br></br>
         <input 
           type="password" 
-          id="confirmed_password"
           placeholder="Подтвердите пароль" 
           value={confirmPassword} 
           onChange={(e) => setConfirmPassword(e.target.value)}
           required 
-          className="border border-gray-300 p-2 rounded mb-4 w-full focus:outline-none focus:border-blue-500"
         />
-      </div>
-      
-      <button className="bg-blue-500 text-white p-2 rounded w-full hover:bg-blue-600 transition duration-200">Зарегистрироваться</button>
-      
-      <p className="mt-4 text-center text-gray-600">
-        Уже есть аккаунт? <a href='/auth' className="text-blue-500 hover:underline">Войти</a>
-      </p>
-    </form>  
+        <hr></hr>
+        <p className="link"> 
+          <a href='/auth'>Уже есть учетная запись?</a>
+        </p>       
+        <br></br><br></br>
+        <button type="submit" className='reg-btn'>
+          Зарегистрироваться
+          <Image 
+            src="/images/Vector.png" 
+            alt="Стрелочка" 
+            width={15} 
+            height={13}
+          /> 
+        </button>
+      </form>  
+      <Image 
+        src="/images/auth-reg.png" 
+        alt="background" 
+        width={350} 
+        height={874}
+        className='mr-64'
+      /> 
+    </div>
   );
 };
 
